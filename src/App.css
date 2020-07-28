@@ -64,7 +64,7 @@ body {
   flex-direction: row;
   flex-wrap: wrap;
 
-  justify-content: end;
+  justify-content: start;
 }
 
 .week-day {
@@ -93,9 +93,10 @@ body {
 
   background: rgba(63, 75, 73, 0.541);
 }
+
 .hour {
   padding: 5px 5px;
-  background: rgba(65, 113, 218, 0.493);
+  background: rgba(185, 194, 68, 0.493);
   border-radius: 10px;
   border: 2px solid rgba(255, 255, 255, 0.425);
   border-right: none;
@@ -171,8 +172,7 @@ input:focus::placeholder {
   }
 
   75% {
-    -webkit-transform: translateX(0px) translateY(42px) rotate(-270deg)
-      scale(0.5);
+    -webkit-transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);
   }
 
   100% {
@@ -198,8 +198,7 @@ input:focus::placeholder {
 
   75% {
     transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);
-    -webkit-transform: translateX(0px) translateY(42px) rotate(-270deg)
-      scale(0.5);
+    -webkit-transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);
   }
 
   100% {

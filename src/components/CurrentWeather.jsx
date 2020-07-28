@@ -32,8 +32,6 @@ const CurrentWeather = ({
           search
         </button>
       </form>
-
-      {console.log(weather)}
     </React.Fragment>
   );
 };

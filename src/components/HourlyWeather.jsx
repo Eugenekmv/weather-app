@@ -1,11 +1,13 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import Hour from "./Hour";
 import { fromKelToCel } from "../formulas/formulas";
 
 const HourlyWeather = ({ hourly }) => {
   const [hours, setHours] = useState();
-  const getHourly = useMemo(() => {
+
+  useEffect(() => {
     if (hourly) {
+      console.log(hourly);
       const hours = hourly
         .filter((hour) => hour.id <= 23)
         .map((hour) => {
@@ -15,14 +17,17 @@ const HourlyWeather = ({ hourly }) => {
             time: new Date(hour.date * 1000).toLocaleTimeString().slice(0, -3),
           };
         });
+      console.log(hours);
       setHours(hours);
+    } else {
+      return;
     }
   }, [hourly]);
 
+  if (!hours) return null;
   return (
     <div className="hourly-weather">
-      {getHourly}
-      {hours ? <Hour hours={hours} /> : <p>loading...</p>}
+      <Hour hours={hours} />
     </div>
   );
 };

@@ -1,5 +1,6 @@
 import React from "react";
 import { fromKelToCel } from "../formulas/formulas";
+import Loader from "./Loader";
 
 const WeekDay = ({ days }) => {
   const dayOfWeek = (dateDay) => {
@@ -31,6 +32,7 @@ const WeekDay = ({ days }) => {
     return new Date(day.date * 1000).getDay();
   };
 
+  if (!days) return <Loader />;
   return (
     <>
       {days.map((day, index) => (

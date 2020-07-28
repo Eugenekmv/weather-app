@@ -10,8 +10,6 @@ const Weather = (props) => {
   const [weather, setWeather] = useState({
     city: "",
     temp: "",
-    coord: "",
-    about: "",
   });
   const [hourly, setHourly] = useState(null);
   const [city, setCity] = useState("");
@@ -20,7 +18,7 @@ const Weather = (props) => {
   useEffect(() => {
     const localCity = localStorage.getItem("city");
     myRef.current.focus();
-    handleSearch(localCity);
+    localCity && handleSearch(localCity);
   }, []);
 
   const handleCityInput = ({ target }) => {
@@ -28,7 +26,6 @@ const Weather = (props) => {
     setCity(text);
   };
   const handleSearch = (city) => {
-    // city !== ""
     if (city) {
       fetch(
         `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=4426de957ef37ff3fa22377c7667eb4d`
@@ -56,7 +53,6 @@ const Weather = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setCity("");
-    // setWeather({ ...weather, coord: null });
   };
 
   return (
@@ -74,7 +70,7 @@ const Weather = (props) => {
       </div>
 
       <NextWeek coord={weather.coord} setHourly={setHourly} />
-      {console.log(hourly)}
+
       <HourlyWeather hourly={hourly} />
     </div>
   );
