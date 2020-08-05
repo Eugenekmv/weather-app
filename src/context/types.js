@@ -1,0 +1,6 @@
+export const GET_WEATHER = 'GET_WEATHER'
+export const SET_ERROR = 'SET_ERROR'
+export const REMOVE_ERROR = 'REMOVE_ERROR'
+export const SET_CITY = 'SET_CITY'
+export const REMOVE_CITY = 'REMOVE_CITY'
+export const SET_HOURS = 'SET_HOURS'

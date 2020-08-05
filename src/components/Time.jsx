@@ -9,7 +9,7 @@ const Time = (props) => {
     }, 1000);
   });
 
-  return <h1>{time}</h1>;
+  return <h1 className="current-weather__time">{time}</h1>;
 };
 
 export default Time;

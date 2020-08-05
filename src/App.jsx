@@ -2,12 +2,14 @@ import React from "react";
 import "./App.css";
 import Weather from "./components/Weather";
 
+import WeatherState from "./context/WeatherState";
+
 function App() {
   return (
     <div className="bg-image">
-      <div className="blur">
+      <WeatherState>
         <Weather />
-      </div>
+      </WeatherState>
     </div>
   );
 }

@@ -1,13 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Hour from "./Hour";
-import { fromKelToCel } from "../formulas/formulas";
+import { fromKelToCel } from "../utils/formulas";
+import WeatherContext from "../context/weatherContext";
 
-const HourlyWeather = ({ hourly }) => {
+import { Transition } from "react-transition-group";
+
+const HourlyWeather = () => {
   const [hours, setHours] = useState();
+  const weatherContext = useContext(WeatherContext);
+  const [ent, setEnt] = useState(false);
+
+  const { hourly, getIcon } = weatherContext;
 
   useEffect(() => {
     if (hourly) {
-      console.log(hourly);
       const hours = hourly
         .filter((hour) => hour.id <= 23)
         .map((hour) => {
@@ -17,7 +23,9 @@ const HourlyWeather = ({ hourly }) => {
             time: new Date(hour.date * 1000).toLocaleTimeString().slice(0, -3),
           };
         });
-      console.log(hours);
+      setTimeout(() => {
+        setEnt(true);
+      }, 10);
       setHours(hours);
     } else {
       return;
@@ -26,9 +34,14 @@ const HourlyWeather = ({ hourly }) => {
 
   if (!hours) return null;
   return (
-    <div className="hourly-weather">
-      <Hour hours={hours} />
-    </div>
+    <Transition in={ent} timeout={1000}>
+      {(state) => (
+        <div className={`hourly-weather blur ${state}`}>
+          {console.log(state)}
+          <Hour hours={hours} getIcon={getIcon} />
+        </div>
+      )}
+    </Transition>
   );
 };
 

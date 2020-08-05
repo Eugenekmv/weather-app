@@ -1,56 +1,73 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import WeekDay from "./WeekDay";
+import WeatherContext from "../context/weatherContext";
+import Loader from "./Loader";
+import { Transition } from "react-transition-group";
 
-const NextWeek = ({ coord, setHourly }) => {
+const NextWeek = () => {
   const [days, setDays] = useState(null);
-
   const [isLoading, setIsLoading] = useState(false);
+  const [entered, setEntered] = useState(false);
+
+  const weatherContext = useContext(WeatherContext);
+
+  const {
+    weather: { coord },
+    setHours,
+    getIcon,
+  } = weatherContext;
 
   useEffect(() => {
     const fetchData = () => {
+      setIsLoading(true);
       if (!coord) return;
-      return (
-        fetch(
-          `https://api.openweathermap.org/data/2.5/onecall?lat=${coord.lat}&lon=${coord.lon}&
+      return fetch(
+        `https://api.openweathermap.org/data/2.5/onecall?lat=${coord.lat}&lon=${coord.lon}&
            exclude=hourly,daily&appid=4426de957ef37ff3fa22377c7667eb4d`
-        )
-          .then((response) => response.json())
-          // .then((res) => console.log(res));
-          .then((res) => {
-            const week = res.daily.map((day, i) => {
-              return {
-                id: i,
-                date: day.dt,
-                temp: day.temp,
-                humidity: day.humidity,
-                weather: day.weather,
-                pressure: day.pressure,
-              };
-            });
-            const hourly = res.hourly.map((hour, i) => {
-              return {
-                id: i,
-                date: hour.dt,
-                temp: hour.temp,
-                weather: hour.weather,
-              };
-            });
-            setHourly(hourly);
-            setDays(week);
+      )
+        .then((response) => response.json())
 
-            setIsLoading(false);
-          })
-      );
+        .then((res) => {
+          const week = res.daily.map((day, i) => {
+            return {
+              id: i,
+              date: day.dt,
+              temp: day.temp,
+              humidity: day.humidity,
+              weather: day.weather,
+              pressure: day.pressure,
+            };
+          });
+          const hourly = res.hourly.map((hour, i) => {
+            return {
+              id: i,
+              date: hour.dt,
+              temp: hour.temp,
+              weather: hour.weather,
+            };
+          });
+          setHours(hourly);
+          setDays(week);
+
+          setIsLoading(false);
+          setEntered(true);
+        });
     };
 
     fetchData();
   }, [coord]);
 
-  if (!days) return null;
+  if (!coord) return null;
+  if (isLoading && coord) return <Loader />;
   return (
-    <div className="week-weather">
-      <WeekDay days={days} />
-    </div>
+    <Transition in={entered} timeout={300}>
+      {(state) => (
+        <div className={`week-weather blur ${state}`}>
+          {console.log(state)}
+          <WeekDay days={days} getIcon={getIcon} />
+        </div>
+      )}
+    </Transition>
   );
 };
 

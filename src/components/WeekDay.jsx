@@ -1,24 +1,24 @@
 import React from "react";
-import { fromKelToCel } from "../formulas/formulas";
+import { fromKelToCel } from "../utils/formulas";
 import Loader from "./Loader";
 
-const WeekDay = ({ days }) => {
+const WeekDay = ({ days, getIcon }) => {
   const dayOfWeek = (dateDay) => {
     switch (dateDay) {
       case 0:
-        return "Sunday";
+        return "Sun";
       case 1:
-        return "Monday";
+        return "Mon";
       case 2:
-        return "Tuesday";
+        return "Tue";
       case 3:
-        return "Wednesday";
+        return "Wed";
       case 4:
-        return "Thursday";
+        return "Thu";
       case 5:
-        return "Friday";
+        return "Fri";
       case 6:
-        return "Saturday";
+        return "Sat";
 
       default:
         return "Day";
@@ -36,12 +36,23 @@ const WeekDay = ({ days }) => {
   return (
     <>
       {days.map((day, index) => (
-        <div key={index} className="week-day">
+        <div key={index} className="week-weather__day">
           <h4>
-            {dayOfWeek(dateDay(day))}:{" "}
-            <span className="day-number">{date(day)}</span>
+            {dayOfWeek(dateDay(day))}:
+            <span className="day__number"> {date(day)}°C</span>
+            <span className="day__descroption">
+              {day.weather[0].description}
+            </span>
           </h4>
-          <p>Temp: {fromKelToCel(day.temp.day)}</p>
+          <span
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}>
+            <p>Temp: {fromKelToCel(day.temp.day)}</p>
+            <span>{getIcon(day.weather[0].icon)}</span>
+          </span>
         </div>
       ))}
     </>
