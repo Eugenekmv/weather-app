@@ -89,4 +89,5 @@ const WeatherState = (props) => {
     </WeatherContext.Provider>
   );
 };
+
 export default WeatherState;

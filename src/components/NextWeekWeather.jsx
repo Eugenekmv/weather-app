@@ -55,6 +55,7 @@ const NextWeek = () => {
     };
 
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [coord]);
 
   if (!coord) return null;
@@ -63,7 +64,6 @@ const NextWeek = () => {
     <Transition in={entered} timeout={300}>
       {(state) => (
         <div className={`week-weather blur ${state}`}>
-          {console.log(state)}
           <WeekDay days={days} getIcon={getIcon} />
         </div>
       )}

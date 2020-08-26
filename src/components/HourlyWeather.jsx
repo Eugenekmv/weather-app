@@ -37,7 +37,6 @@ const HourlyWeather = () => {
     <Transition in={ent} timeout={1000}>
       {(state) => (
         <div className={`hourly-weather blur ${state}`}>
-          {console.log(state)}
           <Hour hours={hours} getIcon={getIcon} />
         </div>
       )}

@@ -23,6 +23,7 @@ const CurrentWeather = () => {
     myRef.current.focus();
     localCity && getWeather(localCity);
     setEntered(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

@@ -6,11 +6,9 @@ import WeatherState from "./context/WeatherState";
 
 function App() {
   return (
-    <div className="bg-image">
-      <WeatherState>
-        <Weather />
-      </WeatherState>
-    </div>
+    <WeatherState>
+      <Weather />
+    </WeatherState>
   );
 }
 

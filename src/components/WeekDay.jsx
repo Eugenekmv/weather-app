@@ -39,7 +39,7 @@ const WeekDay = ({ days, getIcon }) => {
         <div key={index} className="week-weather__day">
           <h4>
             {dayOfWeek(dateDay(day))}:
-            <span className="day__number"> {date(day)}°C</span>
+            <span className="day__number"> {date(day)}</span>
             <span className="day__descroption">
               {day.weather[0].description}
             </span>
@@ -50,7 +50,7 @@ const WeekDay = ({ days, getIcon }) => {
               alignItems: "center",
               justifyContent: "space-between",
             }}>
-            <p>Temp: {fromKelToCel(day.temp.day)}</p>
+            <p>Temp: {fromKelToCel(day.temp.day)}°C</p>
             <span>{getIcon(day.weather[0].icon)}</span>
           </span>
         </div>
